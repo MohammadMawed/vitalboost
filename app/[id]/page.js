@@ -1,6 +1,7 @@
 "use client"
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
+import Link from 'next/link'; // Add this import for the Link component
 import { ChevronLeft, Star, ShoppingCart, Heart, Share2, ArrowLeft, ArrowRight } from 'lucide-react';
 
 // Move products data outside component
