@@ -278,15 +278,20 @@ export default function ProductsPage() {
                             <Link 
                                 href={`/${product.id}`}
                                 key={product.id}
-                                className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+                                className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow flex flex-col h-full"
                             >
-                                <div className="relative">
+                                <div className="relative h-48">
                                     <img 
-                                        src={product.image} 
+                                        src={product.image || "/images/placeholder.png"} 
                                         alt={product.name}
-                                        className="w-full h-48 object-cover"
+                                        className="w-full h-full object-contain"
+                                        loading="lazy"
+                                        onError={(e) => {
+                                            e.target.onerror = null;
+                                            e.target.src = "/images/placeholder.png";
+                                        }}
                                     />
-                                    <div className="absolute top-2 left-2 flex gap-2">
+                                    <div className="absolute top-2 left-2 flex flex-wrap gap-1">
                                         {product.tags.map((tag, index) => (
                                             <span 
                                                 key={index}
@@ -298,26 +303,23 @@ export default function ProductsPage() {
                                     </div>
                                 </div>
                                 
-                                <div className="p-4">
+                                <div className="p-4 flex flex-col flex-grow">
                                     <h3 className="text-lg font-bold text-gray-900 mb-2">{product.name}</h3>
-                                    <p className="text-gray-600 text-sm mb-4">{product.description}</p>
+                                    <p className="text-gray-600 text-sm mb-4 flex-grow">{product.description}</p>
                                     
-                                    <div className="flex items-center justify-between">
+                                    <div className="flex items-center justify-between mt-auto">
                                         <div className="flex items-baseline gap-2">
                                             <span className="text-lg font-bold text-gray-900">€{product.price}</span>
                                             {product.discountPrice && product.discountPrice < product.price && (
-                                                <>
-                                                    <span className="text-sm text-gray-400">×</span>
-                                                    <span className="text-lg font-bold text-blue-600">
-                                                        €{product.discountPrice}
-                                                    </span>
-                                                </>
+                                                <span className="text-sm text-red-600 line-through">
+                                                    €{product.price}
+                                                </span>
                                             )}
                                         </div>
                                         <div className="flex items-center gap-1">
                                             <span className="text-yellow-400">★</span>
                                             <span className="text-sm text-gray-600">
-                                                {product.rating} ({product.reviews})
+                                                {product.rating}
                                             </span>
                                         </div>
                                     </div>

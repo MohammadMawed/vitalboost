@@ -130,9 +130,16 @@ const ProductPage = () => {
           >
             <div className="relative h-48">
               <img 
-                src={relatedProduct.images[0]} 
+                src={relatedProduct.images && relatedProduct.images.length > 0 
+                  ? relatedProduct.images[0] 
+                  : "/images/placeholder.png"}
                 alt={relatedProduct.name} 
                 className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                loading="lazy"
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = "/images/placeholder.png";
+                }}
               />
             </div>
             <div className="p-4">
@@ -203,10 +210,10 @@ const ProductPage = () => {
 
   return (
     <div className="bg-white min-h-screen">
-      {/* Responsive Header */}
-      <header className="bg-white/80 backdrop-blur-md border-b border-gray-100 sticky top-0 z-50">
+      {/* Responsive Header with consistent styling */}
+      <header className="bg-white/95 backdrop-blur-md border-b border-gray-100 sticky top-0 z-50">
         <div className="container mx-auto px-4">
-          <div className="flex justify-between items-center py-4">
+          <div className="flex justify-between items-center h-16">
             <a href="/" className="flex items-center space-x-2">
               <ChevronLeft className="h-5 w-5" />
               <span className="text-lg text-black hidden sm:inline">Zurück zur Übersicht</span>
@@ -225,11 +232,22 @@ const ProductPage = () => {
             {/* Product Images */}
             <div className="lg:w-1/2 space-y-4 lg:space-y-6">
               <div className="relative aspect-square rounded-xl overflow-hidden bg-gray-100">
-                <img 
-                  src={product.images[selectedImage]} 
-                  alt={product.name} 
-                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                />
+                {product.images && product.images.length > 0 ? (
+                  <img 
+                    src={product.images[selectedImage]} 
+                    alt={product.name} 
+                    className="w-full h-full object-contain mobile-optimized"
+                    loading="eager" 
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = "/images/placeholder.png";
+                    }}
+                  />
+                ) : (
+                  <div className="flex items-center justify-center h-full bg-gray-100 text-gray-400">
+                    No image available
+                  </div>
+                )}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent"></div>
                 <div className="absolute bottom-4 right-4 flex space-x-2">
                   <button 
@@ -246,8 +264,10 @@ const ProductPage = () => {
                   </button>
                 </div>
               </div>
+              
+              {/* Thumbnail gallery */}
               <div className="grid grid-cols-3 gap-4">
-                {product.images.map((image, index) => (
+                {product.images && product.images.map((image, index) => (
                   <button 
                     key={index}
                     onClick={() => setSelectedImage(index)}
@@ -255,7 +275,16 @@ const ProductPage = () => {
                       selectedImage === index ? 'ring-2 ring-blue-600' : 'ring-1 ring-gray-200'
                     }`}
                   >
-                    <img src={image} alt="" className="w-full h-full object-cover" />
+                    <img 
+                      src={image} 
+                      alt="" 
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = "/images/placeholder.png";
+                      }}
+                    />
                   </button>
                 ))}
               </div>
@@ -459,28 +488,35 @@ const ProductPage = () => {
               <div 
                 key={relatedProduct.id} 
                 onClick={() => window.location.href = `/${relatedProduct.id}`}
-                className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow cursor-pointer"
+                className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-lg transition-shadow cursor-pointer flex flex-col h-full"
               >
-                <div className="relative h-48">
+                <div className="relative h-48 bg-gray-50">
                   <img 
-                    src={relatedProduct.images[0]} 
+                    src={relatedProduct.images && relatedProduct.images.length > 0 
+                      ? relatedProduct.images[0] 
+                      : "/images/placeholder.png"}
                     alt={relatedProduct.name} 
-                    className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                    className="w-full h-full object-contain"
+                    loading="lazy"
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = "/images/placeholder.png";
+                    }}
                   />
                 </div>
-                <div className="p-4">
+                <div className="p-4 flex flex-col flex-grow">
                   <h3 className="font-medium mb-2 text-gray-900">{relatedProduct.name}</h3>
-                  <p className="text-sm text-gray-600 mb-3 line-clamp-2">{relatedProduct.description}</p>
-                  <div className="flex justify-between items-center">
+                  <p className="text-sm text-gray-600 mb-3 line-clamp-2 flex-grow">{relatedProduct.description}</p>
+                  <div className="flex justify-between items-center mt-auto">
                     <span className="font-bold text-blue-600">€{relatedProduct.price}</span>
                     <button 
                       onClick={(e) => {
                         e.stopPropagation();
                         // Add to cart logic here
                       }} 
-                      className="text-blue-600 hover:text-blue-800 transition-colors"
+                      className="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-lg transition-colors"
                     >
-                      <ShoppingCart className="h-5 w-5" />
+                      <ShoppingCart className="h-4 w-4" />
                     </button>
                   </div>
                 </div>

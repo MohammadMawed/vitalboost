@@ -197,6 +197,90 @@ body {
   height: auto;
 }
 
+/* Improved responsive image handling */
+.product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  background-color: #f9fafb;
+}
+
+.product-image-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%; /* Create a square aspect ratio */
+  overflow: hidden;
+}
+
+.product-image-container img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Fix for mobile image loading */
+@media (max-width: 768px) {
+  img.mobile-optimized {
+    min-height: 200px;
+    background-color: #f9fafb;
+  }
+}
+
+/* Improved product card styling */
+.product-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+}
+
+.product-image-wrapper {
+  position: relative;
+  height: 200px;
+  background-color: #f9fafb;
+  overflow: hidden;
+}
+
+.product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-image {
+  transform: scale(1.05);
+}
+
+/* Tag pill styling */
+.tag-pill {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: white;
+  background-color: #2563eb;
+  margin-right: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
+/* Fix for mobile image display */
+@media (max-width: 768px) {
+  .product-image {
+    object-fit: contain;
+    padding: 0.5rem;
+  }
+}
+
 /* Additional responsive utilities */
 @media (max-width: 640px) {
   .mobile-menu-enter {
@@ -216,4 +300,34 @@ body {
     transform: translateY(-100%);
     transition: transform 300ms ease-in-out;
   }
+}
+
+/* Navigation bar fixes */
+.fixed-nav-offset {
+  padding-top: 4rem; /* Adjust as needed based on your nav height */
+}
+
+@media (max-width: 640px) {
+  .fixed-nav-offset {
+    padding-top: 3.5rem; /* Smaller padding for mobile */
+  }
+}
+
+/* Fix for iOS position:fixed issues */
+@supports (-webkit-touch-callout: none) {
+  .fixed-header {
+    position: sticky;
+  }
+}
+
+/* Overlay for mobile navigation */
+.nav-overlay {
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/* Improve mobile menu animation */
+.mobile-menu {
+  transform-origin: top;
+  transition: transform 0.3s ease, opacity 0.2s ease;
 }
