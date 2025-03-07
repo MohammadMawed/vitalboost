@@ -1,0 +1,150 @@
+export const products = [
+    {
+        id: 1,
+        name: "VitalEssenz Plus",
+        description: "Premium Vitamin-Komplex für gesteigerte Energie",
+        price: 39.99,
+        category: "vitamine",
+        image: "/images/vitamin.png",
+        tags: ["Bestseller", "Neu"],
+        rating: 4.8,
+        reviews: 124,
+        stock: 45
+    },
+    {
+        id: 2,
+        name: "ImmunoGuard Pro",
+        description: "Hochdosierter Immun-Booster mit Zink",
+        price: 44.99,
+        category: "immunsystem",
+        image: "/images/boost.png",
+        tags: ["Premium"],
+        rating: 4.9,
+        reviews: 89,
+        stock: 32
+    },
+    {
+        id: 3,
+        name: "OmegaForce",
+        description: "Hochwertige Omega-3 Fettsäuren",
+        price: 29.99,
+        category: "herz",
+        image: "/images/omega3.png",
+        tags: ["Vegan"],
+        rating: 4.7,
+        reviews: 56,
+        stock: 28
+    },
+    {
+        id: 4,
+        name: "MagnesiumPlus",
+        description: "Magnesium für Muskeln und Nerven",
+        price: 24.99,
+        category: "mineralstoffe",
+        image: "/images/magnesium.png",
+        tags: ["Beliebt"],
+        rating: 4.6,
+        reviews: 78,
+        stock: 15
+    },
+    {
+        id: 5,
+        name: "SleepWell",
+        description: "Natürlicher Schlaf-Optimierer",
+        price: 34.99,
+        category: "schlaf",
+        image: "/images/sleep.png",
+        tags: ["Neu"],
+        rating: 4.8,
+        reviews: 45,
+        stock: 50
+    },
+    {
+        id: 6,
+        name: "BrainBoost",
+        description: "Konzentration und mentale Leistung",
+        price: 49.99,
+        category: "gehirn",
+        image: "/images/boost.png",
+        tags: ["Premium"],
+        rating: 4.9,
+        reviews: 67,
+        stock: 25
+    },
+    {
+        id: 7,
+        name: "VitaminD Complex",
+        description: "Hochdosiertes Vitamin D3 + K2",
+        price: 19.99,
+        category: "vitamine",
+        image: "/images/vitamind.png",
+        tags: ["Essential"],
+        rating: 4.7,
+        reviews: 92,
+        stock: 60
+    },
+    {
+        id: 8,
+        name: "Joint Care Pro",
+        description: "Gelenkunterstützung mit Glucosamin",
+        price: 39.99,
+        category: "gelenke",
+        image: "/images/care.png",
+        tags: ["Premium"],
+        rating: 4.8,
+        reviews: 34,
+        stock: 20
+    },
+    {
+        id: 9,
+        name: "BeautyCollagen",
+        description: "Premium Kollagen für Haut und Haare",
+        price: 54.99,
+        category: "beauty",
+        image: "/images/beautycollagen.png",
+        tags: ["Neu", "Premium"],
+        rating: 4.9,
+        reviews: 23,
+        stock: 40
+    },
+    {
+        id: 10,
+        name: "SportsPro BCAA",
+        description: "Verzweigtkettige Aminosäuren für Sportler",
+        price: 29.99,
+        category: "sport",
+        image: "/images/BCAA.png",
+        tags: ["Sport"],
+        rating: 4.7,
+        reviews: 88,
+        stock: 35
+    },
+    {
+        id: 11,
+        name: "PowerProtein Plus",
+        description: "Premium Protein-Shake mit essentiellen Aminosäuren",
+        price: 49.99,
+        category: "sport",
+        image: "/images/protein.png",
+        tags: ["Sport", "Premium", "Bestseller"],
+        rating: 4.9,
+        reviews: 156,
+        ingredients: "Molkenprotein-Isolat, Molkenprotein-Konzentrat, BCAA-Komplex, Vitaminkomplex",
+        usage: "30g (1 Messlöffel) mit 300ml Wasser oder Milch mischen. 1-2 Portionen täglich.",
+        stock: 45
+    }
+];
+
+export const categories = [
+    'all',
+    'vitamine',
+    'immunsystem',
+    'herz',
+    'mineralstoffe',
+    'schlaf',
+    'gehirn',
+    'gelenke',
+    'beauty',
+    'sport',
+    'protein'
+];
