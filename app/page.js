@@ -103,44 +103,44 @@ const LandingPage = () => {
     return products.filter(product => activeCategory === 'all' || product.category === activeCategory);
   }, [activeCategory]);
 
-  // Updated responsive header with z-index and positioning fixes
+  // Update the Header component for better aesthetics and mobile compatibility with blue color scheme
   const Header = () => (
-    <header className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white shadow-md py-2' : 'bg-white/95 py-4'}`}>
+    <header className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'nav-blue' : 'nav-blue-transparent'}`}>
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
-          <div className="flex items-center">
-            <span className="text-xl sm:text-2xl font-bold text-black">
+          <Link href="/" className="flex items-center">
+            <span className="text-xl sm:text-2xl font-bold text-white">
               VitalBoost
             </span>
-          </div>
+          </Link>
           
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-4 lg:space-x-8">
-            <a href="#" className="text-sm lg:text-base text-gray-900 hover:text-blue-600 transition-colors font-medium">Startseite</a>
-            <a href="/products" className="text-sm lg:text-base text-gray-900 hover:text-blue-600 transition-colors font-medium">Produkte</a>
-            <a href="/about" className="text-sm lg:text-base text-gray-900 hover:text-blue-600 transition-colors font-medium">Über Uns</a>
-            <a href="#contact" className="text-sm lg:text-base text-gray-900 hover:text-blue-600 transition-colors font-medium">Kontakt</a>
+          <nav className="hidden md:flex items-center space-x-6">
+            <Link href="/" className="text-white/90 hover:text-white transition-colors font-medium">Startseite</Link>
+            <Link href="/products" className="text-white/90 hover:text-white transition-colors font-medium">Produkte</Link>
+            <Link href="/about" className="text-white/90 hover:text-white transition-colors font-medium">Über Uns</Link>
+            <Link href="#contact" className="text-white/90 hover:text-white transition-colors font-medium">Kontakt</Link>
           </nav>
 
-          <div className="flex items-center gap-2 sm:gap-4">
+          <div className="flex items-center gap-3">
             <div className="relative">
-              <ShoppingCart className="h-5 w-5 sm:h-6 sm:w-6 text-gray-900 hover:text-blue-600 transition-colors cursor-pointer" />
+              <ShoppingCart className="h-6 w-6 text-white hover:text-white/90 transition-colors cursor-pointer" />
               {cartItems > 0 && (
-                <span className="absolute -top-2 -right-2 bg-blue-600 text-white text-xs rounded-full h-4 w-4 sm:h-5 sm:w-5 flex items-center justify-center">
+                <span className="absolute -top-2 -right-2 bg-white text-blue-600 text-xs rounded-full h-5 w-5 flex items-center justify-center font-medium">
                   {cartItems}
                 </span>
               )}
             </div>
             <Link 
               href="/login"
-              className="hidden sm:flex items-center space-x-2 bg-blue-600 text-white px-3 py-2 lg:px-4 lg:py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm lg:text-base"
+              className="hidden md:flex items-center space-x-2 bg-white text-blue-600 hover:bg-blue-50 px-4 py-2 rounded-lg transition-colors font-medium"
             >
-              <LogIn className="h-4 w-4 lg:h-5 lg:w-5" />
+              <LogIn className="h-4 w-4" />
               <span>Login</span>
             </Link>
             <button 
               onClick={toggleMenu} 
-              className="md:hidden p-2 rounded-lg hover:bg-gray-100"
+              className="md:hidden p-2 rounded-lg hover:bg-blue-700/50 text-white"
               aria-label="Toggle menu"
             >
               {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -148,22 +148,25 @@ const LandingPage = () => {
           </div>
         </div>
 
-        {/* Mobile Navigation with proper z-index and animation */}
+        {/* Mobile Navigation with improved animation and styling */}
         <div 
-          className={`md:hidden absolute left-0 right-0 top-full bg-white border-t border-gray-200 shadow-lg transform transition-all duration-300 z-40 ${
+          className={`md:hidden absolute left-0 right-0 top-full bg-blue-800 border-t border-blue-700 shadow-lg transform transition-all duration-300 z-40 ${
             isMenuOpen ? 'translate-y-0 opacity-100' : '-translate-y-4 opacity-0 pointer-events-none'
           }`}
         >
           <nav className="flex flex-col py-2">
-            <a href="#" className="px-4 py-3 text-gray-900 hover:text-blue-600 hover:bg-gray-50">Startseite</a>
-            <a href="#products" className="px-4 py-3 text-gray-900 hover:text-blue-600 hover:bg-gray-50">Produkte</a>
-            <a href="#about" className="px-4 py-3 text-gray-900 hover:text-blue-600 hover:bg-gray-50">Über Uns</a>
-            <a href="#contact" className="px-4 py-3 text-gray-900 hover:text-blue-600 hover:bg-gray-50">Kontakt</a>
+            <Link href="/" className="px-4 py-3 text-white/90 hover:bg-blue-700 hover:text-white">Startseite</Link>
+            <Link href="/products" className="px-4 py-3 text-white/90 hover:bg-blue-700 hover:text-white">Produkte</Link>
+            <Link href="/about" className="px-4 py-3 text-white/90 hover:bg-blue-700 hover:text-white">Über Uns</Link>
+            <Link href="#contact" className="px-4 py-3 text-white/90 hover:bg-blue-700 hover:text-white">Kontakt</Link>
             <Link 
               href="/login"
-              className="px-4 py-3 text-blue-600 font-medium"
+              className="px-4 py-3 text-white font-medium hover:bg-blue-700"
             >
-              Login
+              <span className="flex items-center">
+                <LogIn className="h-4 w-4 mr-2" />
+                Login
+              </span>
             </Link>
           </nav>
         </div>
@@ -171,9 +174,9 @@ const LandingPage = () => {
     </header>
   );
 
-  // Updated responsive hero section
+  // Updated responsive hero section with padding to prevent navbar overlap
   const HeroSection = () => (
-    <section className="relative min-h-screen flex items-center bg-gradient-to-r from-blue-900 to-blue-700 overflow-hidden px-4">
+    <section className="relative min-h-screen pt-16 md:pt-24 flex items-center bg-gradient-to-r from-blue-900 to-blue-700 overflow-hidden px-4">
       <div className="container mx-auto">
         <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
           <div className="w-full lg:w-1/2 relative z-10 text-center lg:text-left">
@@ -374,6 +377,7 @@ const LandingPage = () => {
     </section>
   );
 
+  // Update the ProductCard component:
   const ProductCard = ({ product }) => {
     const handleAddToCart = (e) => {
       e.stopPropagation();
@@ -383,10 +387,31 @@ const LandingPage = () => {
     return (
       <div 
         onClick={() => navigateToProduct(product.id)}
-        className="group bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer flex flex-col h-full overflow-hidden transform hover:-translate-y-1"
+        className="group bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer flex flex-col h-full overflow-hidden transform hover:-translate-y-1 product-card-mobile"
       >
         {/* Product Image Container */}
-        <div className="relative h-52 bg-gray-50">
+        <div className="product-image-mobile bg-gray-50 relative">
+          {/* Fallback content */}
+          <div className="empty-image-placeholder">
+            <span>Produktbild</span>
+          </div>
+          
+          {/* Product Image with optimized loading */}
+          <img 
+            src={product.image || "/images/placeholder.png"} 
+            alt={product.name}
+            className="mobile-image-fix safari-image-fix absolute inset-0"
+            loading="eager"
+            width="200"
+            height="200"
+            style={{objectFit: "contain"}}
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.style.display = 'none';
+              e.target.parentNode.querySelector('.empty-image-placeholder').style.display = 'flex';
+            }}
+          />
+          
           {/* Tags */}
           {product.tags && product.tags.length > 0 && (
             <div className="absolute top-3 left-3 z-10 flex flex-wrap gap-1.5">
@@ -400,49 +425,9 @@ const LandingPage = () => {
               ))}
             </div>
           )}
-          
-          {/* Product Image with optimized loading */}
-          <div className="h-full w-full flex items-center justify-center p-3">
-            <img 
-              src={product.image || "/images/placeholder.png"} 
-              alt={product.name} 
-              className="max-h-full max-w-full object-contain transform group-hover:scale-105 transition-transform duration-500"
-              loading="lazy"
-              onError={(e) => {
-                e.target.onerror = null;
-                e.target.src = "/images/placeholder.png";
-              }}
-            />
-          </div>
         </div>
         
-        {/* Product Info */}
-        <div className="p-5 flex flex-col flex-grow border-t border-gray-100">
-          <h3 className="text-lg font-bold mb-1.5 text-gray-900 line-clamp-2 group-hover:text-blue-700 transition-colors">
-            {product.name}
-          </h3>
-          
-          <p className="text-gray-600 text-sm mb-4 line-clamp-2 flex-grow">
-            {product.description}
-          </p>
-          
-          <div className="flex items-center justify-between mt-auto pt-2">
-            <div className="flex flex-col">
-              <span className="text-lg font-bold text-gray-900">€{product.price.toFixed(2)}</span>
-              {product.discountPrice && product.discountPrice < product.price && (
-                <span className="text-xs text-red-500 line-through">€{product.price.toFixed(2)}</span>
-              )}
-            </div>
-            
-            <button 
-              onClick={handleAddToCart}
-              aria-label="In den Warenkorb"
-              className="bg-blue-600 text-white px-3 py-2 rounded-lg font-medium hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all transform hover:scale-105 active:scale-95 shadow-sm"
-            >
-              <span>In den Warenkorb</span>
-            </button>
-          </div>
-        </div>
+        {/* ...existing product info... */}
       </div>
     );
   };

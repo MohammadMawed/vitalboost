@@ -13,40 +13,49 @@ export default function AboutPage() {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    // Reusable Header component
+    // Update the Header component for blue color scheme
     const Header = () => (
-        <header className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white shadow-md py-2' : 'bg-transparent py-4'}`}>
+        <header className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'nav-blue' : 'nav-blue-transparent'}`}>
             <div className="container mx-auto px-4">
-                <div className="flex justify-between items-center py-4">
-                    <Link href="/" className="text-2xl font-bold text-black">
-                        VitalBoost
+                <div className="flex justify-between items-center h-16">
+                    <Link href="/" className="flex items-center">
+                        <span className="text-xl sm:text-2xl font-bold text-white">
+                            VitalBoost
+                        </span>
                     </Link>
-                    <nav className="hidden md:flex space-x-8">
-                        <Link href="/" className="text-gray-900 hover:text-blue-600 transition-colors font-medium">Startseite</Link>
-                        <Link href="/products" className="text-gray-900 hover:text-blue-600 transition-colors font-medium">Produkte</Link>
-                        <Link href="/about" className="text-blue-600 font-medium">Über Uns</Link>
-                        <Link href="/contact" className="text-gray-900 hover:text-blue-600 transition-colors font-medium">Kontakt</Link>
+                    <nav className="hidden md:flex space-x-6">
+                        <Link href="/" className="text-white/90 hover:text-white transition-colors font-medium">Startseite</Link>
+                        <Link href="/products" className="text-white/90 hover:text-white transition-colors font-medium">Produkte</Link>
+                        <Link href="/about" className="text-white font-medium">Über Uns</Link>
+                        <Link href="/contact" className="text-white/90 hover:text-white transition-colors font-medium">Kontakt</Link>
                     </nav>
-                    <div className="flex items-center space-x-6">
-                        <Link href="/login" className="hidden md:flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
-                            <LogIn className="h-5 w-5" />
+                    <div className="flex items-center gap-3">
+                        <Link href="/login" className="hidden md:flex items-center space-x-2 bg-white text-blue-600 hover:bg-blue-50 px-4 py-2 rounded-lg transition-colors font-medium">
+                            <LogIn className="h-4 w-4" />
                             <span>Login</span>
                         </Link>
-                        <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="md:hidden text-gray-900">
+                        <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="md:hidden p-2 rounded-lg hover:bg-blue-700/50 text-white">
                             {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
                         </button>
                     </div>
                 </div>
             </div>
-            {isMenuOpen && (
-                <nav className="md:hidden bg-white p-4 border-t border-gray-200">
-                    <Link href="/" className="block py-2 text-gray-900 hover:text-blue-600">Startseite</Link>
-                    <Link href="/products" className="block py-2 text-gray-900 hover:text-blue-600">Produkte</Link>
-                    <Link href="/about" className="block py-2 text-blue-600">Über Uns</Link>
-                    <Link href="/contact" className="block py-2 text-gray-900 hover:text-blue-600">Kontakt</Link>
-                    <Link href="/login" className="block py-2 text-blue-600 hover:text-blue-700 font-medium">Login</Link>
+            <div 
+                className={`md:hidden absolute left-0 right-0 top-full bg-blue-800 border-t border-blue-700 shadow-lg transform transition-all duration-300 z-40 ${
+                    isMenuOpen ? 'translate-y-0 opacity-100' : '-translate-y-4 opacity-0 pointer-events-none'
+                }`}
+            >
+                <nav className="flex flex-col">
+                    <Link href="/" className="px-4 py-3 text-white/90 hover:bg-blue-700 hover:text-white">Startseite</Link>
+                    <Link href="/products" className="px-4 py-3 text-white/90 hover:bg-blue-700 hover:text-white">Produkte</Link>
+                    <Link href="/about" className="px-4 py-3 text-white bg-blue-700/60">Über Uns</Link>
+                    <Link href="/contact" className="px-4 py-3 text-white/90 hover:bg-blue-700 hover:text-white">Kontakt</Link>
+                    <Link href="/login" className="px-4 py-3 text-white font-medium hover:bg-blue-700 flex items-center">
+                        <LogIn className="h-4 w-4 mr-2" />
+                        <span>Login</span>
+                    </Link>
                 </nav>
-            )}
+            </div>
         </header>
     );
 
@@ -54,8 +63,8 @@ export default function AboutPage() {
         <div className="min-h-screen bg-white">
             <Header />
             
-            {/* Hero Section */}
-            <section className="relative h-screen flex items-center justify-center overflow-hidden">
+            {/* Hero Section with padding for fixed navbar */}
+            <section className="relative h-screen pt-16 md:pt-24 flex items-center justify-center overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-900/90 to-blue-800/90 z-10"></div>
                 <video 
                     autoPlay 

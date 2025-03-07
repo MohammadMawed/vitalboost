@@ -211,16 +211,24 @@ const ProductPage = () => {
   return (
     <div className="bg-white min-h-screen">
       {/* Responsive Header with consistent styling */}
-      <header className="bg-white/95 backdrop-blur-md border-b border-gray-100 sticky top-0 z-50">
+      <header className="nav-blue sticky top-0 z-50">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center h-16">
-            <a href="/" className="flex items-center space-x-2">
+            <a href="/" className="flex items-center space-x-2 text-white/90 hover:text-white transition-colors">
               <ChevronLeft className="h-5 w-5" />
-              <span className="text-lg text-black hidden sm:inline">Zurück zur Übersicht</span>
+              <span className="text-lg hidden sm:inline">Zurück zur Übersicht</span>
             </a>
-            <span className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
-              VitalBoost
-            </span>
+            <Link href="/" className="flex items-center">
+              <span className="text-xl sm:text-2xl font-bold text-white">
+                VitalBoost
+              </span>
+            </Link>
+            <div className="relative">
+              <ShoppingCart className="h-5 w-5 text-white hover:text-white/90 transition-colors cursor-pointer" />
+              <span className="absolute -top-2 -right-2 bg-white text-blue-600 text-xs rounded-full h-5 w-5 flex items-center justify-center font-medium">
+                0
+              </span>
+            </div>
           </div>
         </div>
       </header>
@@ -232,21 +240,28 @@ const ProductPage = () => {
             {/* Product Images */}
             <div className="lg:w-1/2 space-y-4 lg:space-y-6">
               <div className="relative aspect-square rounded-xl overflow-hidden bg-gray-100">
-                {product.images && product.images.length > 0 ? (
+                {/* Fallback content */}
+                <div className="empty-image-placeholder">
+                  <span>Produktbild</span>
+                </div>
+                
+                {product.images && product.images.length > 0 && (
                   <img 
                     src={product.images[selectedImage]} 
                     alt={product.name} 
-                    className="w-full h-full object-contain mobile-optimized"
+                    className="mobile-image-fix safari-image-fix absolute inset-0"
                     loading="eager" 
+                    fetchPriority="high"
+                    width="400"
+                    height="400"
+                    style={{objectFit: "contain"}}
                     onError={(e) => {
+                      console.log('Image error:', e);
                       e.target.onerror = null;
+                      e.target.style.display = 'none'; 
                       e.target.src = "/images/placeholder.png";
                     }}
                   />
-                ) : (
-                  <div className="flex items-center justify-center h-full bg-gray-100 text-gray-400">
-                    No image available
-                  </div>
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent"></div>
                 <div className="absolute bottom-4 right-4 flex space-x-2">
@@ -271,17 +286,26 @@ const ProductPage = () => {
                   <button 
                     key={index}
                     onClick={() => setSelectedImage(index)}
-                    className={`aspect-square rounded-lg overflow-hidden ${
+                    className={`relative aspect-square rounded-lg overflow-hidden ${
                       selectedImage === index ? 'ring-2 ring-blue-600' : 'ring-1 ring-gray-200'
                     }`}
                   >
+                    {/* Thumbnail fallback */}
+                    <div className="empty-image-placeholder">
+                      <span>Bild</span>
+                    </div>
+                    
                     <img 
                       src={image} 
                       alt="" 
-                      className="w-full h-full object-cover"
+                      className="mobile-image-fix safari-image-fix absolute inset-0"
                       loading="lazy"
+                      width="100"
+                      height="100"
+                      style={{objectFit: "cover"}}
                       onError={(e) => {
                         e.target.onerror = null;
+                        e.target.style.display = 'none';
                         e.target.src = "/images/placeholder.png";
                       }}
                     />
@@ -488,18 +512,27 @@ const ProductPage = () => {
               <div 
                 key={relatedProduct.id} 
                 onClick={() => window.location.href = `/${relatedProduct.id}`}
-                className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-lg transition-shadow cursor-pointer flex flex-col h-full"
+                className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-lg transition-shadow cursor-pointer flex flex-col h-full product-card-mobile"
               >
-                <div className="relative h-48 bg-gray-50">
+                <div className="product-image-mobile bg-gray-50 relative">
+                  {/* Fallback content */}
+                  <div className="empty-image-placeholder">
+                    <span>Produktbild</span>
+                  </div>
+                  
                   <img 
                     src={relatedProduct.images && relatedProduct.images.length > 0 
                       ? relatedProduct.images[0] 
                       : "/images/placeholder.png"}
-                    alt={relatedProduct.name} 
-                    className="w-full h-full object-contain"
+                    alt={relatedProduct.name}
+                    className="mobile-image-fix safari-image-fix absolute inset-0"
                     loading="lazy"
+                    width="200"
+                    height="200"
+                    style={{objectFit: "contain"}}
                     onError={(e) => {
                       e.target.onerror = null;
+                      e.target.style.display = 'none';
                       e.target.src = "/images/placeholder.png";
                     }}
                   />
